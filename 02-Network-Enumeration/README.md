@@ -1,7 +1,9 @@
-# Lab 02 — Network Enumeration & System Component Inventory
+# 02 — Network Enumeration & System Component Inventory
 
 **NIST SP 800-53 Rev. 5:** CM-8 System Component Inventory (primary) · CM-7 Least Functionality (secondary) · RA-5 / SI-2 (links to Lab 01)
+
 **Tools:** Nmap 7.99, Python 3, `ss`, `nmcli`, `systemctl`, `timedatectl`, Kali Linux, Oracle VirtualBox
+
 **Author:** Gideon Sarfo-Nyantakyi · CompTIA Security+ CE · Active DoD Secret clearance
 
 > ⚠️ All scanning was performed inside an isolated personal lab network that I own and control. No external or third-party systems were scanned, and no exploitation was performed.
@@ -100,10 +102,10 @@ Output was validated against the raw report: 30 open services read, 28 flagged.
 | Localhost-only services on Kali | 1 (Ollama), 0 after remediation |
 | POA&M items | 9 (1 Critical, 3 High, 3 Moderate, 2 Low) — 2 closed |
 
-**Final asset inventory:** [`inventory/asset-inventory.csv`](inventory/asset-inventory.csv)
-**Service inventory:** [`inventory/service-inventory.csv`](inventory/service-inventory.csv)
-**Unauthorized services (CM-7):** [`inventory/unauthorized-services.csv`](inventory/unauthorized-services.csv)
-**Authorized baseline:** [`authorized-baseline.csv`](authorized-baseline.csv)
+- **Final asset inventory:** [`inventory/asset-inventory.csv`](inventory/asset-inventory.csv)
+- **Service inventory:** [`inventory/service-inventory.csv`](inventory/service-inventory.csv)
+- **Unauthorized services (CM-7):** [`inventory/unauthorized-services.csv`](inventory/unauthorized-services.csv)
+- **Authorized baseline:** [`authorized-baseline.csv`](authorized-baseline.csv)
 
 ![Host discovery](screenshots/02-host-discovery.png)
 ![Final asset inventory](screenshots/14-final-asset-inventory-b.png)
