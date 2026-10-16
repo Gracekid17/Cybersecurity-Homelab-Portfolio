@@ -1,0 +1,5 @@
+Rule ID,Title,Severity,Decision,Justification
+all_apparmor_profiles_in_enforce_complain_mode,All AppArmor Profiles are in enforce or complain mode,medium,,
+permissions_local_var_log,Verify permissions of log files,medium,,
+set_ufw_default_rule,Ensure ufw Default Deny Firewall Policy,medium,,
+ufw_rules_for_open_ports,Ensure ufw Firewall Rules Exist for All Open Ports,medium,,
