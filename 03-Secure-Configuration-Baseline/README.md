@@ -218,6 +218,7 @@ Every change was made after a snapshot and verified before the next one; three c
 
 | Date (UTC) | Change | Verification and impact |
 |---|---|---|
+| 2026-10-16 | Published OpenSCAP evidence after redacting the GRUB hash from two HTML reports (copies only) | Pattern search across all 13 files: 0 matches after redaction, confirmed again on the published copies. |
 | 2026-10-16 | Disabled TCP timestamps via `/etc/sysctl.d/60-tcp-timestamps.conf` | `sysctl net.ipv4.tcp_timestamps` returns 0; persists across reboots. GVM rescan and delta report confirm the finding is gone. |
 | 2026-10-16 | Reset `gsarfo` and `gvmscan` passwords from Ubuntu rescue media (chroot); cleared the `gsarfo` lockout with `faillock --reset` | The account had locked after 4 failed logins and GRUB editing is password-protected, so boot-time recovery was blocked by design. New passwords met the `pam_pwquality` policy. Shell history cleared afterward. |
 | 2026-10-16 | Target RAM reduced from 2048 MB to 1024 MB (ISO temporarily removed and memory restored after rescue) | Allowed the target and scanner to run together on the 8 GB host. |
@@ -256,6 +257,7 @@ The main lesson: compliance is a set of documented decisions, not a score. A def
 - **Prove the scan was authenticated.** A credentialed scan that fails to log in still finishes and looks normal. The evidence is the "SSH Login Successful" result and the Auth indicator, not the task status.
 - **Size the scanner.** On a 4 GB VM, the first GVM feed import took over six hours, mostly one database update. A scanner that cannot keep its feed current cannot support continuous monitoring (CA-7), so capacity belongs in tool planning.
 - **Not every finding is the system's to fix.** The CPU mitigations depend on the host and hypervisor. Recognizing inherited responsibility avoids chasing a fix the guest cannot make.
+- **Scan reports are sensitive data.** The after-reports captured the GRUB password hash from the system they scanned. Evidence must be sanitized before it leaves the environment, and a pattern search across every file is a quick, repeatable check.
 - **Read the delta direction.** GVM's delta report labels results relative to whichever report is selected first; comparing in the wrong order showed a fixed finding as "new".
 
 ### Control mapping
@@ -287,20 +289,22 @@ Evidence lives in `03-Secure-Configuration-Baseline/evidence/`. The first table 
 
 | File | Content | Location |
 |---|---|---|
-| lab03-baseline-report.html | Baseline OpenSCAP report (68.83) | Kali, ~/lab03-evidence |
-| lab03-baseline-results.xml | Baseline machine-readable results | Kali, ~/lab03-evidence |
-| lab03-triage.csv | 112 failures with decisions and justifications | Kali, ~/lab03-evidence |
-| failed_rules.py | Script that extracts failed rules to CSV | Kali, ~/lab03-evidence |
-| lab03-tailoring.xml | Approved baseline: CIS L1 Server minus 10 deviations | Target, home folder |
-| lab03-remediate.sh | Generated remediation script (398 fixes) | Target, home folder |
-| lab03-remediation.log | Full output of the remediation run | Target, home folder |
-| lab03-pending-updates.txt | Updates pending before patching | Target, home folder |
-| lab03-patching.log | Output of the patch run | Target, home folder |
-| lab03-after-report.html | After scan, original CIS profile (96.59) | Target, home folder |
-| lab03-after-results.xml | After scan results, original profile | Target, home folder |
-| lab03-after-tailored-report.html | After scan, tailored profile (97.58) | Target, home folder |
-| lab03-after-tailored-results.xml | After scan results, tailored profile | Target, home folder |
-| lab03-after-fails.csv | The 4 residual failures | Target, home folder |
+| lab03-baseline-report.html | Baseline OpenSCAP report (68.83) | evidence/ |
+| lab03-baseline-results.xml | Baseline machine-readable results | evidence/ |
+| lab03-triage.csv | 112 failures with decisions and justifications | evidence/ |
+| failed_rules.py | Script that extracts failed rules to CSV | Not preserved: lost with the original scanner VM (Oct 2026). Its output, `lab03-triage.csv`, is published. |
+| lab03-tailoring.xml | Approved baseline: CIS L1 Server minus 10 deviations | evidence/ |
+| lab03-remediate.sh | Generated remediation script (398 fixes) | evidence/ |
+| lab03-remediation.log | Full output of the remediation run | evidence/ |
+| lab03-pending-updates.txt | Updates pending before patching | evidence/ |
+| lab03-patching.log | Output of the patch run | evidence/ |
+| lab03-after-report.html | After scan, original CIS profile (96.59); GRUB hash redacted | evidence/ |
+| lab03-after-results.xml | After scan results, original profile | evidence/ |
+| lab03-after-tailored-report.html | After scan, tailored profile (97.58); GRUB hash redacted | evidence/ |
+| lab03-after-tailored-results.xml | After scan results, tailored profile | evidence/ |
+| lab03-after-fails.csv | The 4 residual failures | evidence/ |
+
+**Sanitization before publishing (2026-10-16).** Before upload, every file was searched for the GRUB PBKDF2 password hash. The two "after" HTML reports contained it in their OVAL details, because the scanner records what it reads from the GRUB configuration while checking the boot-loader password rule. In the published copies the hash is replaced with `grub.pbkdf2.sha512.[REDACTED]`; a re-check found 0 matches in all 13 files. The unredacted originals remain on `lab03-target` only.
 
 ### Authenticated GVM scan evidence (2026-10-16)
 
@@ -324,11 +328,11 @@ Evidence lives in `03-Secure-Configuration-Baseline/evidence/`. The first table 
 
 **Screenshots to include (hardening phase):** build verification (`hostnamectl`, SSH socket), LabNet ping, baseline Evaluation Characteristics and Compliance and Scoring, the three verification commands for the high-severity rules, the second-session SSH login with banner, `ufw status verbose`, and the single /tmp tmpfs mount after reboot.
 
-**Do not publish:** any screenshot or file showing the GRUB PBKDF2 hash or `/boot/grub/grub.cfg` contents, and any credentials, including the GVM setup output that prints the admin password and any login screen with a password visible.
+**Do not publish:** any screenshot or file showing the GRUB PBKDF2 hash (including unredacted OpenSCAP reports) or `/boot/grub/grub.cfg` contents, and any credentials, including the GVM setup output that prints the admin password and any login screen with a password visible.
 
-- [ ] Copy the ten target files to Kali with scp
-- [ ] Upload all evidence to the GitHub repo
+- [x] Copy the target files to Kali with scp, redact, and publish to `evidence/`
+- [x] Upload all available evidence to the GitHub repo
 - [x] Run the authenticated GVM scan to close POA&M-002
 - [x] Upload the GVM scan PDFs and screenshots to `evidence/`
 - [ ] Snapshot `lab03-target` as "post-remediation – auth-scan complete (2026-10-16)"
-- [ ] Update the main README lab index: Lab 03 complete, POA&M-002 closed
+- [x] Update the main README lab index: Lab 03 complete, POA&M-002 closed
