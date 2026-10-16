@@ -37,7 +37,7 @@ GRC, vulnerability management, and security operations competencies.
 |---|---|---|---|---|
 | 01 | [Vulnerability Assessment](01-Vulnerability-Assessment/) | OpenVAS GVM 26.17.0 | RA-5, SI-2, CA-7 | ✅ Complete |
 | 02 | [Network Enumeration & Asset Inventory](02-Network-Enumeration/) | Nmap 7.99, Python, ss | CM-8, CM-7, SI-2, SC-45 | ✅ Complete |
-| 03 | System Hardening & Verification Re-scan | Metasploitable 2, SCAP/STIG tools | CM-6, CM-7 | 🔲 Planned |
+| 03 | [Secure Configuration Baseline & Authenticated Re-scan](03-Secure-Configuration-Baseline/) | OpenSCAP 1.3.9, CIS L1 Server, OpenVAS GVM (authenticated) | CM-2, CM-6, CM-7, RA-5(5), CA-7 | ✅ Complete |
 | 04 | System Security Plan (SSP) | NIST SP 800-53 Rev. 5 | PL-2, AC-1, IA-1 | 🔲 Planned |
 | 05 | Continuous Monitoring & Log Analysis | Kali Linux logs | AU-6, CA-7, IR-4 | 🔲 Planned |
 
