@@ -28,7 +28,7 @@ GRC, vulnerability management, and security operations competencies.
 | Scanners | OpenVAS (Greenbone) GVM 26.17.0, Nmap 7.99|
 | Frameworks | NIST SP 800-53 Rev. 5, NIST RMF, CMMC 2.0 |
 | Target VM | Metasploitable 2 (intentionally vulnerable, isolated) |
-| Lab Network | VirtualBox NAT Network "GRC-Lab" (10.0.2.0/24, IPv6 disabled) |
+| Lab Network | VirtualBox NAT Network "LabNet" (10.0.5.0/24); Labs 01–02 used "GRC-Lab" (10.0.2.0/24) |
 
 ---
 
@@ -38,7 +38,7 @@ GRC, vulnerability management, and security operations competencies.
 | 01 | [Vulnerability Assessment](01-Vulnerability-Assessment/) | OpenVAS GVM 26.17.0 | RA-5, SI-2, CA-7 | ✅ Complete |
 | 02 | [Network Enumeration & Asset Inventory](02-Network-Enumeration/) | Nmap 7.99, Python, ss | CM-8, CM-7, SI-2, SC-45 | ✅ Complete |
 | 03 | [Secure Configuration Baseline & Authenticated Re-scan](03-Secure-Configuration-Baseline/) | OpenSCAP 1.3.9, CIS L1 Server, OpenVAS GVM (authenticated) | CM-2, CM-6, CM-7, RA-5(5), CA-7 | ✅ Complete |
-| 04 | System Security Plan (SSP) | NIST SP 800-53 Rev. 5 | PL-2, AC-1, IA-1 | 🔲 Planned |
+| 04 | [System Security Plan & Control Assessment](04-System-Security-Plan/) | CISO Assistant, NIST SP 800-53 Rev 5, FIPS 199 | PL-2, CA-2, CA-5, RA-3 (23 controls assessed) | ✅ Complete |
 | 05 | Continuous Monitoring & Log Analysis | Kali Linux logs | AU-6, CA-7, IR-4 | 🔲 Planned |
 
 
