@@ -75,7 +75,7 @@ Numbering continues from Lab 03 (POA&M-013 to 019). The Lab 02 items (POA&M-004 
 | POA&M-021 | No auditd, centralized log collection, or log review | AU-2, AU-12, CA-7 | Medium | Lab 05: deploy log collection and analysis, define a review cadence, evaluate auditd | Lab 05 | Open |
 | POA&M-022 | Rebuilt scanner reverted to America/New_York with NTP inactive; the POA&M-012 fix was lost in the rebuild | AU-8, CM-2 | Low | Set the time zone to America/Chicago and enable NTP; verify with `timedatectl` | 2026-10-19 | **Closed 2026-10-19.** Evidence: `lab04-02-kali-time-sync.png` |
 
-**Re-baseline needed (master POA&M):** POA&M-005 (Metasploitable2 backdoored services, Critical) was due 2026-10-01 and is overdue. It needs a new date and a reason, for example: "rebuild deferred to the Metasploitable hardening lab; host remains isolated."
+**Re-baselined (master POA&M):** POA&M-005 (Metasploitable2 backdoored services, Critical) missed its 2026-10-01 milestone. It and POA&M-006 to 008 were moved to 2026-12-15 with a documented reason in the Lab 02 README.
 
 ## Lessons learned
 
@@ -112,6 +112,6 @@ Evidence lives in `04-System-Security-Plan/evidence/`. Lab 03 evidence is linked
 - [x] Link evidence (35 links, verified against the export)
 - [x] Export the audit report and check it for sensitive data
 - [x] Write the SSP and control matrix
-- [ ] Upload the SSP, matrix, README and evidence to GitHub
-- [ ] Update the main README lab index: Lab 04 complete
-- [ ] Re-baseline POA&M-005 in the master POA&M
+- [x] Upload the SSP, matrix, README and evidence to GitHub
+- [x] Update the main README lab index: Lab 04 complete
+- [x] Re-baseline POA&M-005 to 008 in the master POA&M (new milestone 2026-12-15)
